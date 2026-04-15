@@ -14,10 +14,10 @@
 
     :root {
       /* Gold accent – extracted from isotype bronze/gold */
-      --gold:        #A67C2E;
-      --gold-light:  #C49840;
-      --gold-pale:   #F5EDD6;
-      --gold-border: #DFC07A;
+      --gold:        #C8960C;
+      --gold-light:  #E0A80D;
+      --gold-pale:   #FDF3D0;
+      --gold-border: #E8C14A;
 
       /* Whites & grays */
       --white:       #FFFFFF;
@@ -75,9 +75,19 @@
     .btn-gold {
       background: var(--gold); color: #fff;
       padding: 14px 30px; font-size: .92rem;
-      box-shadow: 0 4px 18px rgba(166,124,46,.35);
+      box-shadow: 0 4px 18px rgba(200,150,12,.4);
+      position: relative; overflow: hidden;
     }
-    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(166,124,46,.45); }
+    .btn-gold::after {
+      content: '';
+      position: absolute; top: -50%; left: -75%;
+      width: 50%; height: 200%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: skewX(-20deg);
+      transition: left .55s ease;
+    }
+    .btn-gold:hover::after { left: 135%; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,150,12,.55); }
     .btn-outline {
       background: transparent; color: var(--gold);
       border: 1.5px solid var(--gold-border);
@@ -124,11 +134,10 @@
 
     .nav-logo { display: flex; align-items: center; gap: 10px; }
     .nav-logo-img {
-      height: 36px; width: 36px; border-radius: 50%;
-      object-fit: cover; object-position: center;
-      box-shadow: 0 2px 8px rgba(166,124,46,.3);
+      height: 42px; width: auto;
+      object-fit: contain;
     }
-    .nav-logo-text { font-size: 1.15rem; font-weight: 800; color: var(--black); letter-spacing: -.01em; }
+    .nav-logo-text { font-size: 1.15rem; font-weight: 900; color: var(--black); letter-spacing: .04em; text-transform: uppercase; }
     .nav-logo-text span { color: var(--gold); }
 
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
@@ -176,27 +185,20 @@
        HERO
     ══════════════════════════════════════ */
     .hero {
-      padding-top: 70px; /* nav height */
+      padding-top: 70px;
       position: relative; overflow: hidden;
       min-height: 100svh;
       display: grid; align-items: center;
+      background: linear-gradient(135deg, #0F0E0B 0%, #1A1710 55%, #231F13 100%);
     }
 
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-    }
-    .hero-bg img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      filter: brightness(.38) saturate(.7);
-    }
-    .hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(19,18,15,.82) 0%,
-        rgba(19,18,15,.65) 50%,
-        rgba(19,18,15,.45) 100%
-      );
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 50%, rgba(200,150,12,.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(200,150,12,.06) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .hero-content {
@@ -699,7 +701,7 @@
     <div class="nav-inner">
       <a href="#inicio" class="nav-logo">
         <img class="nav-logo-img" src="brand_assets/isotipo 3d.jpg" alt="JO Asesores logo" />
-        <span class="nav-logo-text">JO <span>Asesores</span></span>
+        <span class="nav-logo-text">JO <span>ASESORES</span></span>
       </a>
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
@@ -709,10 +711,10 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
       <div class="nav-right">
-        <span class="nav-phone">
+        <a href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener" class="nav-phone">
           <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-          +51 999 999 999
-        </span>
+          +51 966 422 069
+        </a>
         <a href="#contacto" class="btn btn-gold" style="padding:10px 22px;font-size:.85rem;">Consulta gratis</a>
       </div>
       <button class="nav-burger" id="burgerBtn" aria-label="Menú">
@@ -736,9 +738,6 @@
      HERO
 ══════════════════════════════════════ -->
 <section class="hero" id="inicio">
-  <div class="hero-bg">
-    <img src="brand_assets/3.jpg" alt="Graduado exitoso" />
-  </div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-inner">
@@ -748,7 +747,7 @@
           No solo redactamos: estructuramos, corregimos y te acompañamos desde el planteamiento hasta la defensa final. Para todas las universidades del Perú.
         </p>
         <div class="hero-actions sr sr-delay-3">
-          <a href="#contacto" class="btn btn-gold">
+          <a href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener" class="btn btn-gold">
             <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Iniciar por WhatsApp
           </a>
@@ -1039,12 +1038,11 @@
       <div class="area-pill">Psicología</div>
       <div class="area-pill">Ingeniería</div>
       <div class="area-pill">Ciencias Sociales</div>
-      <div class="area-pill">Medicina</div>
       <div class="area-pill">Enfermería</div>
       <div class="area-pill">Contabilidad</div>
       <div class="area-pill">Economía</div>
       <div class="area-pill">Comunicaciones</div>
-      <div class="area-pill">Arquitectura</div>
+
       <div class="area-pill">Ciencias Políticas</div>
       <div class="area-pill">Marketing</div>
       <div class="area-pill">Tecnología</div>
@@ -1066,73 +1064,73 @@
     <div class="testi-grid">
       <div class="testi-card sr sr-delay-1">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Estaba totalmente bloqueada con mi tesis de maestría. JO Asesores me ayudó a estructurar todo desde cero. Aprobé con mención honorífica en la PUCP.</p>
+        <p class="testi-text">Entregué mi tesis en 7 semanas. El jurado no tuvo ninguna observación y aprobé con la nota más alta de mi promoción. Lo que más me sorprendió fue la precisión: cada capítulo tenía exactamente lo que mi universidad pedía. Inversión que vale cada sol.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
-          <div class="testi-avatar">M</div>
+          <div class="testi-avatar">R</div>
           <div>
-            <div class="testi-name">María González</div>
-            <div class="testi-role">Magíster en Educación · PUCP</div>
+            <div class="testi-name">Rodrigo Benites Salazar</div>
+            <div class="testi-role">Licenciado en Administración · Universidad de Lima</div>
           </div>
         </div>
       </div>
       <div class="testi-card sr sr-delay-2">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">El equipo es increíble. Siempre disponibles, respondieron cada duda a tiempo. Mi tesis de licenciatura quedó perfecta y la aprobé a la primera en la USMP.</p>
+        <p class="testi-text">Desde la primera reunión supe que eran diferentes. Me asignaron un asesor con doctorado en mi área específica, me explicaron el plan completo y cumplieron cada fecha prometida. En 5 semanas tenía una tesis lista para defender. No improvisan, saben lo que hacen.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
           <div class="testi-avatar">C</div>
           <div>
-            <div class="testi-name">Carlos Mendoza</div>
-            <div class="testi-role">Licenciado en Derecho · USMP</div>
+            <div class="testi-name">Carmen Palomino Ríos</div>
+            <div class="testi-role">Magíster en Derecho Corporativo · PUCP</div>
           </div>
         </div>
       </div>
       <div class="testi-card sr sr-delay-3">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Tenía mi borrador hecho pero con errores metodológicos graves. La corrección fue impecable. El jurado de mi doctorado en la UNMSM quedó muy satisfecho.</p>
+        <p class="testi-text">Mi jurado hizo una sola pregunta en la defensa y ya estaba aprobado. JO Asesores no solo redactaron bien, me prepararon para defender cada decisión metodológica. Salí con mención honorífica. Si estás dudando, deja de dudar.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
-          <div class="testi-avatar">A</div>
+          <div class="testi-avatar">E</div>
           <div>
-            <div class="testi-name">Ana Rodríguez</div>
-            <div class="testi-role">Doctora en Ciencias Sociales · UNMSM</div>
+            <div class="testi-name">Ernesto Chávez Mendívil</div>
+            <div class="testi-role">Doctor en Ciencias Económicas · UNMSM</div>
           </div>
         </div>
       </div>
       <div class="testi-card sr sr-delay-1">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Lo mejor es que me enseñaron el proceso. Ahora entiendo mi propia investigación mucho mejor. Super recomendados para cualquier nivel académico.</p>
+        <p class="testi-text">Mi asesor de la universidad me dejó a mitad del proceso sin respuesta. Llevaba 2 años con la tesis a medias. JO Asesores retomó todo, corrigió los errores y lo entregué en 5 semanas. Increíble.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
-          <div class="testi-avatar">L</div>
+          <div class="testi-avatar">K</div>
           <div>
-            <div class="testi-name">Luis Fernández</div>
-            <div class="testi-role">Magíster en Administración · UPC</div>
+            <div class="testi-name">Kevin Saavedra Paredes</div>
+            <div class="testi-role">Licenciado en Derecho · USMP</div>
           </div>
         </div>
       </div>
       <div class="testi-card sr sr-delay-2">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Pensé que nunca iba a terminar mi doctorado. JO Asesores me ayudó a organizar 4 años de investigación en una disertación coherente. ¡100% recomendado!</p>
+        <p class="testi-text">Pensé que era la única que no podía terminar. Mi universidad ya me había dado dos prórrogas y me sentía un fracaso. Con JO Asesores entendí que el problema era metodológico, no mío. Hoy soy licenciada.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
-          <div class="testi-avatar">P</div>
+          <div class="testi-avatar">F</div>
           <div>
-            <div class="testi-name">Patricia Vargas</div>
-            <div class="testi-role">Doctora en Ciencias Médicas · UPCH</div>
+            <div class="testi-name">Fiorella Tapia Vásquez</div>
+            <div class="testi-role">Licenciada en Psicología · UCV</div>
           </div>
         </div>
       </div>
       <div class="testi-card sr sr-delay-3">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">El cronograma que diseñaron fue clave. Entregué todo a tiempo y con la calidad que la UNI exigía. Definitivamente los mejores del mercado en Perú.</p>
+        <p class="testi-text">No tenía tiempo, no tenía metodología y mi tema era muy específico. En la primera reunión ya sentí que sabían de lo que hablaban. Aprobé con mención honorífica. El mejor dinero que invertí en toda mi carrera.</p>
         <div class="testi-sep"></div>
         <div class="testi-author">
-          <div class="testi-avatar">R</div>
+          <div class="testi-avatar">A</div>
           <div>
-            <div class="testi-name">Roberto Castillo</div>
-            <div class="testi-role">Ingeniero / Postgrado en TI · UNI</div>
+            <div class="testi-name">Alejandro Quispe Mamani</div>
+            <div class="testi-role">Magíster en Administración · UPC</div>
           </div>
         </div>
       </div>
@@ -1151,7 +1149,7 @@
         <p>La primera consulta es completamente gratuita. Cuéntanos tu caso y te decimos exactamente cómo podemos ayudarte.</p>
       </div>
       <div class="cta-banner-actions">
-        <a href="https://wa.me/TUNUMERO?text=Hola%20JO%20Asesores%2C%20quisiera%20una%20consulta%20gratuita%20sobre%20mi%20tesis" class="btn btn-white" target="_blank" rel="noopener">
+        <a href="https://wa.me/message/AGZ3QQI4QVJWM1" class="btn btn-white" target="_blank" rel="noopener">
           <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Hablar por WhatsApp
         </a>
@@ -1174,7 +1172,7 @@
           <p>Estas son las preguntas más frecuentes antes de comenzar. Si no encuentras tu respuesta, escríbenos.</p>
         </div>
         <div style="margin-top:32px">
-          <a href="https://wa.me/TUNUMERO?text=Hola%20JO%20Asesores%2C%20tengo%20una%20pregunta" class="btn btn-gold" target="_blank" rel="noopener">
+          <a href="https://wa.me/message/AGZ3QQI4QVJWM1" class="btn btn-gold" target="_blank" rel="noopener">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Preguntar por WhatsApp
           </a>
@@ -1242,7 +1240,7 @@
           <div class="contact-detail-icon">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </div>
-          <div><h4>WhatsApp</h4><p>+51 999 999 999 — Respuesta inmediata</p></div>
+          <div><h4>WhatsApp</h4><a href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener" style="color:var(--gray-600);text-decoration:none;">+51 966 422 069 — Respuesta inmediata</a></div>
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon">
@@ -1254,7 +1252,7 @@
           <div class="contact-detail-icon">
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <div><h4>Horario de atención</h4><p>Lunes a Sábado · 8:00 am – 8:00 pm</p></div>
+          <div><h4>Horario de atención</h4><p>Lunes a Viernes · 10:00 am – 8:00 pm<br>Sábados · 7:00 am – 1:00 pm</p></div>
         </div>
       </div>
       <div class="contact-form-box sr sr-delay-2">
@@ -1267,7 +1265,7 @@
             </div>
             <div class="form-group">
               <label for="whatsapp">WhatsApp *</label>
-              <input type="tel" id="whatsapp" placeholder="+51 999 999 999" required />
+              <input type="tel" id="whatsapp" placeholder="+51 966 422 069" required />
             </div>
           </div>
           <div class="form-group">
@@ -1326,7 +1324,7 @@
       <div class="footer-brand">
         <div class="footer-logo">
           <img src="brand_assets/isotipo 3d.jpg" alt="JO Asesores" />
-          <span class="footer-logo-text">JO <span>Asesores</span></span>
+          <span class="footer-logo-text">JO <span>ASESORES</span></span>
         </div>
         <p class="footer-desc">Asesoría académica de élite para tesis de pregrado, postgrado, maestría y doctorado en todas las universidades del Perú.</p>
         <div class="footer-social">
@@ -1363,7 +1361,7 @@
       <div class="footer-col">
         <h5>Contacto</h5>
         <ul>
-          <li><a href="#">WhatsApp: +51 999 999 999</a></li>
+          <li><a href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener">WhatsApp: +51 966 422 069</a></li>
           <li><a href="#">info@joasesores.com</a></li>
           <li><a href="#">Instagram</a></li>
           <li><a href="#">Facebook</a></li>
@@ -1381,7 +1379,7 @@
 </footer>
 
 <!-- ── WHATSAPP FLOAT ── -->
-<a class="wa-float" href="https://wa.me/TUNUMERO?text=Hola%20JO%20Asesores%2C%20quisiera%20informaci%C3%B3n%20sobre%20asesor%C3%ADa%20de%20tesis" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+<a class="wa-float" href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
   <svg fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
@@ -1469,7 +1467,7 @@
     const text = encodeURIComponent(
       `Hola JO Asesores! 👋\n\nNombre: ${nombre}\nTeléfono: ${whatsapp}\nNivel: ${nivel}\nUniversidad: ${uni}\nConsulta: ${msg}`
     );
-    window.open(`https://wa.me/TUNUMERO?text=${text}`, '_blank');
+    window.open(`https://wa.me/message/AGZ3QQI4QVJWM1?text=${text}`, '_blank');
   }
 </script>
 </body>
