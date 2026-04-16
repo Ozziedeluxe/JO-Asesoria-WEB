@@ -584,6 +584,33 @@
     /* ══════════════════════════════════════
        FOOTER
     ══════════════════════════════════════ */
+    /* ══ TRABAJA CON NOSOTROS ══ */
+    .jobs { background: var(--off-white); padding: 100px 0; }
+    .jobs-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    @media(max-width:768px){ .jobs-inner { grid-template-columns: 1fr; gap: 40px; } }
+    .jobs-copy h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .jobs-copy p { color: var(--gray-600); line-height: 1.75; margin-bottom: 24px; }
+    .jobs-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .jobs-perks li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--gray-600); }
+    .jobs-perks li::before { content: '✓'; color: var(--gold); font-weight: 800; font-size: 1rem; flex-shrink: 0; }
+    .jobs-form-box {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 40px; box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-100);
+    }
+    .jobs-form-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; color: var(--gray-800); }
+    .jobs-file-label {
+      display: flex; align-items: center; gap: 10px;
+      border: 2px dashed var(--gold-border); border-radius: var(--radius);
+      padding: 16px 20px; cursor: pointer; color: var(--gray-600);
+      font-size: .88rem; transition: background .2s;
+    }
+    .jobs-file-label:hover { background: var(--gold-pale); }
+    .jobs-file-label svg { flex-shrink: 0; color: var(--gold); }
+    #cv-file { display: none; }
+    #cv-name { font-size: .82rem; color: var(--gray-400); margin-top: 6px; }
+    .jobs-submit { width: 100%; margin-top: 8px; }
+
     footer { background: var(--black); padding: 64px 0 32px; }
 
     .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px; }
@@ -709,6 +736,7 @@
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#testimonios">Testimonios</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li><a href="#trabaja">Trabaja con nosotros</a></li>
       </ul>
       <div class="nav-right">
         <a href="https://wa.me/message/AGZ3QQI4QVJWM1" target="_blank" rel="noopener" class="nav-phone">
@@ -731,6 +759,7 @@
   <a href="#nosotros"    onclick="closeNav()">Nosotros</a>
   <a href="#testimonios" onclick="closeNav()">Testimonios</a>
   <a href="#faq"         onclick="closeNav()">FAQ</a>
+  <a href="#trabaja"     onclick="closeNav()">Trabaja con nosotros</a>
   <a href="#contacto" class="btn btn-gold" onclick="closeNav()">Consulta gratis</a>
 </div>
 
@@ -938,7 +967,7 @@
       </div>
       <div class="process-step sr sr-delay-4">
         <div class="process-num">4</div>
-        <h3>Defensa exitosa</h3>
+        <h3>Sustentación exitosa</h3>
         <p>Te preparamos para el jurado anticipando preguntas, objeciones y fortaleciendo cada argumento de tu investigación.</p>
       </div>
     </div>
@@ -1316,6 +1345,60 @@
 </section>
 
 <!-- ══════════════════════════════════════
+     TRABAJA CON NOSOTROS
+══════════════════════════════════════ -->
+<section class="jobs" id="trabaja">
+  <div class="container">
+    <div class="jobs-inner">
+      <div class="jobs-copy sr">
+        <span class="tag">Únete al equipo</span>
+        <h2 style="margin-top:16px;">Trabaja con <span class="text-gold">nosotros</span></h2>
+        <p>En JO Asesores buscamos asesores apasionados por la investigación y la educación. Si tienes experiencia en metodología, redacción académica o estadística y quieres acompañar a estudiantes a lograr sus metas, queremos conocerte.</p>
+        <ul class="jobs-perks">
+          <li>Trabajo flexible y remoto</li>
+          <li>Pagos puntuales y competitivos</li>
+          <li>Ambiente colaborativo y de crecimiento</li>
+          <li>Acceso a capacitaciones internas</li>
+        </ul>
+      </div>
+      <div class="jobs-form-box sr sr-delay-2">
+        <h3>Déjanos tus datos</h3>
+        <form onsubmit="handleJobsForm(event)" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="job-nombre">Nombre completo *</label>
+            <input type="text" id="job-nombre" placeholder="Tu nombre completo" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="job-email">Correo electrónico *</label>
+              <input type="email" id="job-email" placeholder="tucorreo@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="job-tel">WhatsApp *</label>
+              <input type="tel" id="job-tel" placeholder="+51 999 999 999" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="job-especialidad">Especialidad o área *</label>
+            <input type="text" id="job-especialidad" placeholder="Ej: Estadística, Derecho, Ciencias de la Salud…" required />
+          </div>
+          <div class="form-group">
+            <label>Hoja de vida (CV) *</label>
+            <label for="cv-file" class="jobs-file-label">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V4m0 0L8 8m4-4l4 4"/></svg>
+              <span id="cv-label-text">Subir archivo (PDF, DOC, DOCX)</span>
+            </label>
+            <input type="file" id="cv-file" accept=".pdf,.doc,.docx" required />
+            <p id="cv-name"></p>
+          </div>
+          <button type="submit" class="btn btn-gold jobs-submit">Enviar postulación</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
      FOOTER
 ══════════════════════════════════════ -->
 <footer>
@@ -1356,6 +1439,7 @@
           <li><a href="#proceso">Nuestro proceso</a></li>
           <li><a href="#testimonios">Testimonios</a></li>
           <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="#trabaja">Trabaja con nosotros</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1455,6 +1539,31 @@
   }, { threshold: 0.3 });
   const strip = document.querySelector('.stats-strip');
   if (strip) statsObserver.observe(strip);
+
+  /* ── CV file name display ── */
+  document.getElementById('cv-file').addEventListener('change', function() {
+    const label = document.getElementById('cv-name');
+    const textSpan = document.getElementById('cv-label-text');
+    if (this.files && this.files[0]) {
+      textSpan.textContent = this.files[0].name;
+      label.textContent = '';
+    }
+  });
+
+  /* ── Jobs form submit (WhatsApp) ── */
+  function handleJobsForm(e) {
+    e.preventDefault();
+    const nombre   = document.getElementById('job-nombre').value;
+    const email    = document.getElementById('job-email').value;
+    const tel      = document.getElementById('job-tel').value;
+    const esp      = document.getElementById('job-especialidad').value;
+    const cvFile   = document.getElementById('cv-file').files[0];
+    const cvName   = cvFile ? cvFile.name : 'No adjuntado';
+    const text = encodeURIComponent(
+      `Hola JO Asesores! 👋 Me postulo para trabajar con ustedes.\n\nNombre: ${nombre}\nCorreo: ${email}\nWhatsApp: ${tel}\nEspecialidad: ${esp}\nCV adjunto: ${cvName}\n\n(Adjunto mi CV por este medio)`
+    );
+    window.open(`https://wa.me/message/AGZ3QQI4QVJWM1?text=${text}`, '_blank');
+  }
 
   /* ── Form submit ── */
   function handleForm(e) {
