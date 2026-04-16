@@ -1550,19 +1550,55 @@
     }
   });
 
-  /* ── Jobs form submit (WhatsApp) ── */
-  function handleJobsForm(e) {
+  /* ── Jobs form submit (Google Sheet + WhatsApp) ── */
+  // ⚠️ Reemplazar con tu URL de Apps Script después de hacer el deploy
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwW5mfD0-Iu1qKRoc9s6QoSoH7IcQxNUusbeS7CXiSIspIzd4TvsLwnQCv2paZWNY4pDw/exec';
+
+  async function handleJobsForm(e) {
     e.preventDefault();
-    const nombre   = document.getElementById('job-nombre').value;
-    const email    = document.getElementById('job-email').value;
-    const tel      = document.getElementById('job-tel').value;
-    const esp      = document.getElementById('job-especialidad').value;
-    const cvFile   = document.getElementById('cv-file').files[0];
-    const cvName   = cvFile ? cvFile.name : 'No adjuntado';
-    const text = encodeURIComponent(
-      `Hola JO Asesores! 👋 Me postulo para trabajar con ustedes.\n\nNombre: ${nombre}\nCorreo: ${email}\nWhatsApp: ${tel}\nEspecialidad: ${esp}\nCV adjunto: ${cvName}\n\n(Adjunto mi CV por este medio)`
-    );
-    window.open(`https://wa.me/message/AGZ3QQI4QVJWM1?text=${text}`, '_blank');
+
+    const nombre  = document.getElementById('job-nombre').value;
+    const email   = document.getElementById('job-email').value;
+    const tel     = document.getElementById('job-tel').value;
+    const esp     = document.getElementById('job-especialidad').value;
+    const cvFile  = document.getElementById('cv-file').files[0];
+    const cvName  = cvFile ? cvFile.name : '';
+
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    // Convertir CV a base64
+    let cvBase64 = null;
+    if (cvFile) {
+      cvBase64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload  = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(cvFile);
+      });
+    }
+
+    // Enviar a Google Sheet
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({ nombre, email, telefono: tel, especialidad: esp, cvBase64, cvName }),
+      });
+      // Mostrar mensaje de éxito
+      const box = document.querySelector('.jobs-form-box');
+      box.innerHTML = `
+        <div style="text-align:center; padding: 40px 20px;">
+          <div style="font-size:3rem; margin-bottom:16px;">✅</div>
+          <h3 style="color:var(--black); margin-bottom:12px;">¡Postulación recibida!</h3>
+          <p style="color:var(--gray-600); line-height:1.7;">Gracias <strong>${nombre}</strong>, hemos recibido tu información y CV.<br>Nos pondremos en contacto contigo pronto.</p>
+        </div>`;
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Enviar postulación';
+      alert('Hubo un problema al enviar. Por favor intenta de nuevo.');
+    }
   }
 
   /* ── Form submit ── */
