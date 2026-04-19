@@ -771,7 +771,7 @@
     <div class="hero-content">
       <div class="hero-inner">
         <div class="tag sr">Asesoría Académica de Élite · Perú</div>
-        <h1 class="sr sr-delay-1">Tu tesis aprobada,<br /><em>sin estrés.</em></h1>
+        <h1 class="sr sr-delay-1">El plazo se acerca<br /><em>y los capítulos no avanzan.</em></h1>
         <p class="hero-sub sr sr-delay-2">
           No solo redactamos: estructuramos, corregimos y te acompañamos desde el planteamiento hasta la defensa final. Para todas las universidades del Perú.
         </p>
@@ -1602,16 +1602,36 @@
   }
 
   /* ── Form submit ── */
-  function handleForm(e) {
+  async function handleForm(e) {
     e.preventDefault();
-    const nombre   = document.getElementById('nombre').value;
-    const whatsapp = document.getElementById('whatsapp').value;
-    const nivel    = document.getElementById('nivel').value;
-    const uni      = document.getElementById('universidad').value;
-    const msg      = document.getElementById('mensaje').value;
-    const text = encodeURIComponent(
-      `Hola JO Asesores! 👋\n\nNombre: ${nombre}\nTeléfono: ${whatsapp}\nNivel: ${nivel}\nUniversidad: ${uni}\nConsulta: ${msg}`
-    );
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Analizando...';
+    btn.disabled = true;
+
+    const nombre      = document.getElementById('nombre').value;
+    const whatsapp    = document.getElementById('whatsapp').value;
+    const nivel       = document.getElementById('nivel').value;
+    const universidad = document.getElementById('universidad').value;
+    const mensaje     = document.getElementById('mensaje').value;
+
+    let text;
+    try {
+      const res = await fetch('http://localhost:3000/analyze-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, whatsapp, nivel, universidad, mensaje })
+      });
+      const data = await res.json();
+      text = encodeURIComponent(data.message);
+    } catch {
+      text = encodeURIComponent(
+        `Hola JO Asesores! 👋\n\nNombre: ${nombre}\nTeléfono: ${whatsapp}\nNivel: ${nivel}\nUniversidad: ${universidad}\nConsulta: ${mensaje}`
+      );
+    }
+
+    btn.textContent = originalText;
+    btn.disabled = false;
     window.open(`https://wa.me/message/AGZ3QQI4QVJWM1?text=${text}`, '_blank');
   }
 </script>
