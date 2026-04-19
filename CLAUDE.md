@@ -66,6 +66,22 @@ credentials.json, token.json  # Google OAuth (gitignored)
 
 **Core principle:** Local files are just for processing. Anything I need to see or use lives in cloud services. Everything in `.tmp/` is disposable.
 
+## Publicación del Sitio Web
+
+Este proyecto está vinculado a **GitHub → Vercel**. Cuando el usuario diga "publícalo", "súbelo", "despliégalo" o similar, ejecutar directamente sin pedir confirmación:
+
+```bash
+cd "d:/SISTEMA CLAUDE/JO ASESORES/EDITOR WEB"
+git add index.html
+git commit -m "<mensaje descriptivo del cambio>"
+git push origin main
+```
+
+- Repositorio: `https://github.com/Ozziedeluxe/JO-Asesoria-WEB.git`
+- Rama principal: `main`
+- Vercel despliega automáticamente al detectar el push (1-2 minutos)
+- Confirmar al usuario cuando el push haya sido exitoso
+
 ## Bottom Line
 
 You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.
